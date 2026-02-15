@@ -8,7 +8,7 @@ LocalFinds is a website designed to help users discover nice locations around th
 The goal of this project is to make it easier for users to find enjoyable and useful locations in their community.
 
 ###Authors
-	Aron O'Brien
+	Aaron O'Brien
 	Mark Berkey
 	Gayani Don Francis
 
@@ -33,8 +33,11 @@ LocalFinds was created as a collaborative project to:
 	•	HTML
 	•	CSS
 	•	JavaScript
-	•	MySQL
+	•	SQLite 
 	•	Python
+
+###🚀 How to Run the Project
+(to be completed) 
   
 ###📌 Future Improvements
 
