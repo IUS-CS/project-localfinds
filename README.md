@@ -33,7 +33,7 @@ LocalFinds was created as a academic collaborative project to:
 1. Clone and navigate to the repository.
     ```
     git clone https://github.com/IUS-CS/project-localfinds
-    cd project-localfind
+    cd project-localfinds
     ``` 
     
 2. Ensure that Make and python are installed.
