@@ -38,24 +38,26 @@ def create_post(db_path, subject, content, author_id, address, tags=None):
 
 def get_post(db_path, post_id):
     conn = sqlite3.connect(db_path)
+    conn.row_factory = sqlite3.Row
     cursor = conn.cursor()
-
+    
     cursor.execute("SELECT * FROM posts WHERE id = ?", (post_id,))
     post = cursor.fetchone()
-
+    
     conn.close()
-    return post
+    return dict(post) if post else None
 
 
 def get_all_posts(db_path):
     conn = sqlite3.connect(db_path)
+    conn.row_factory = sqlite3.Row
     cursor = conn.cursor()
 
     cursor.execute("SELECT * FROM posts ORDER BY updated_at DESC")
     posts = cursor.fetchall()
 
     conn.close()
-    return posts
+    return [dict(post) for post in posts]
 
 
 def update_post(db_path, post_id, subject, content, address, tags=None):
@@ -81,6 +83,11 @@ def delete_post(db_path, post_id):
     conn.commit()
     conn.close()
 
+def clear_posts(db_path):
+    conn = sqlite3.connect(db_path)
+    cursor = conn.cursor()
 
-if __name__ == "__main__":
-    initialize_db(posts_db)
+    cursor.execute("DELETE FROM posts")
+
+    conn.commit()
+    conn.close()
