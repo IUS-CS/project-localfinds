@@ -3,7 +3,7 @@ import pytest
 import tempfile
 import os
 import time
-from posts_db import initialize_db, create_post, get_post, get_all_posts, update_post, delete_post
+from posts_db import initialize_db, create_post, get_post, get_all_posts, update_post, delete_post, clear_posts
 
 # Run 'pytest -v' to run test functions in this file. Make sure to have pytest is installed.
 
@@ -21,21 +21,21 @@ def temp_db():
 def test_create_post(temp_db):
     create_post(temp_db, "Hello", "First post", "user1", "123 Street", "intro")
     post = get_post(temp_db, 1)
-    assert post[1] == "Hello"
-    assert post[2] == "First post"
-    assert post[3] == "user1"
-    assert post[4] == "123 Street"
-    assert post[5] == "intro"
+    assert post["subject"] == "Hello"
+    assert post["content"] == "First post"
+    assert post["author_id"] == "user1"
+    assert post["address"] == "123 Street"
+    assert post["tags"] == "intro"
 
 def test_get_post(temp_db):
     create_post(temp_db,"Test Post", "This is the content", "user1", "123 Street", "test, sample")
     post = get_post(temp_db, 1) 
     assert post is not None
-    assert post[1] == "Test Post"           
-    assert post[2] == "This is the content" 
-    assert post[3] == "user1"               
-    assert post[4] == "123 Street"          
-    assert post[5] == "test, sample"        
+    assert post["subject"] == "Test Post"           
+    assert post["content"] == "This is the content" 
+    assert post["author_id"] == "user1"               
+    assert post["address"] == "123 Street"          
+    assert post["tags"] == "test, sample"        
 
 
 def test_get_all_posts(temp_db):
@@ -46,22 +46,29 @@ def test_get_all_posts(temp_db):
     posts = get_all_posts(temp_db)
     assert len(posts) == 2
     # Check order by updated_at DESC
-    assert posts[0][1] == "Post B"
-    assert posts[1][1] == "Post A"
+    assert posts[0]["subject"] == "Post B"
+    assert posts[1]["subject"] == "Post A"
 
 
 def test_update_post(temp_db):
     create_post(temp_db, "Old Title", "Old Content", "user1", "Addr1")
     update_post(temp_db, 1, "New Title", "New Content", "New Addr", "tag1")
     post = get_post(temp_db, 1)
-    assert post[1] == "New Title"
-    assert post[2] == "New Content"
-    assert post[4] == "New Addr"
-    assert post[5] == "tag1"
+    assert post["subject"] == "New Title"
+    assert post["content"] == "New Content"
+    assert post["address"] == "New Addr"
+    assert post["tags"] == "tag1"
 
 
 def test_delete_post(temp_db):
     create_post(temp_db, "Temp", "Temp Content", "user1", "Addr1")
     delete_post(temp_db, 1)
+    posts = get_all_posts(temp_db)
+    assert len(posts) == 0
+
+def test_clear_posts(temp_db):
+    create_post(temp_db, "Temp1", "Temp Content 1", "user1", "Addr1")
+    create_post(temp_db, "Temp2", "Temp Content 2", "user2", "Addr2")
+    clear_posts(temp_db)
     posts = get_all_posts(temp_db)
     assert len(posts) == 0
