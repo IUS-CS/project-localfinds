@@ -3,7 +3,7 @@ import pytest
 import tempfile
 import os
 import time
-from posts_db import initialize_db, create_post, get_post, get_all_posts, update_post, delete_post, clear_posts
+from src.database.posts_db import initialize_db, create_post, get_post, get_all_posts, update_post, delete_post, clear_posts
 
 # Run 'pytest -v' to run test functions in this file. Make sure to have pytest is installed.
 
