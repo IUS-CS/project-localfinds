@@ -1,5 +1,3 @@
-# project-localfinds
-[README (1).md](https://github.com/user-attachments/files/25347937/README.1.md)
 # LocalFinds
 
 LocalFinds is a website designed to help users discover and introduce others to nice locations around them. The platform allows the community to highlights any type of place such as cafés, parks, scenic areas, and other important local spots.
@@ -34,8 +32,8 @@ LocalFinds was created as a academic collaborative project to:
 ## Usage
 1. Clone and navigate to the repository.
     ```
-    git clone https://github.com/IUS-CS/    project-localfinds
-    cd project-localfind
+    git clone https://github.com/IUS-CS/project-localfinds
+    cd project-localfinds
     ``` 
     
 2. Ensure that Make and python are installed.

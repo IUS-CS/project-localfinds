@@ -1,4 +1,3 @@
-[proposal.md](https://github.com/user-attachments/files/25347830/proposal.md)
 # LocalFinds - Proposal
 
 ## Vision Statement

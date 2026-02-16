@@ -1,4 +1,3 @@
-[organization.md](https://github.com/user-attachments/files/25347879/organization.md)
 # LocalFinds – Organization
 
 ## Team Members and Roles
