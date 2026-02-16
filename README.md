@@ -32,7 +32,7 @@ LocalFinds was created as a academic collaborative project to:
 ## Usage
 1. Clone and navigate to the repository.
     ```
-    git clone https://github.com/IUS-CS/    project-localfinds
+    git clone https://github.com/IUS-CS/project-localfinds
     cd project-localfind
     ``` 
     
