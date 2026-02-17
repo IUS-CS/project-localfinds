@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="LocalFinds is the place to go to find local parks, small businesses, and unique spots in your area.">
+        <title>
+            Home | LocalFinds
+        </title>
+    </head>
+    <body>
+        <header>
+            <a href="{{ url_for('home') }}">
+                <img src="{{ url_for('static', filename='images/lflogo.png') }}" alt="LocalFinds" class="logo">
+            </a>
+        </header>
+        <main>
+            <div>
+                <a href="{{ url_for('create_post') }}">
+                    <button>Create New Post</button>
+                </a>
+            </div>
+            <h2>Newest Finds:</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Subject</th>
+                        <th>Address</th>
+                        <th>Tags</th>
+                        <th>Author</th>
+                        <th>Created At</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for post in posts %}
+                    <tr>
+                        <td>
+                            <a href="{{ url_for('serve_post', post_id=post['id']) }}">{{ post.subject }}</a>
+                        </td>
+                        <td>{{ post.address }}</td>
+                        <td>{{ post.tags }}</td>
+                        <td>{{ post.author_id }}</td>
+                        <td>{{ post.created_at }}</td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="5">No posts yet.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </main>
+        <footer>
+            <p>This website was produced by Team LocalFinds as a project for Indiana University Southeast.</p>
+        </footer>
+    </body>
+</html>

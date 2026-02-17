@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="LocalFinds is the place to go to find local parks, small businesses, and unique spots in your area.">
+        <title>
+            Create Post | LocalFinds
+        </title>
+    </head>
+    <body>
+        <header>
+            <a href="{{ url_for('home') }}">
+                <img src="{{ url_for('static', filename='images/lflogo.png') }}" alt="LocalFinds" class="logo">
+            </a>
+        </header>
+    <main>
+        <form method="POST">
+            <div id="post_head">
+                <h1>
+                    <input type="text" name="subject" placeholder="Subject" required>
+                </h1>
+                <p>
+                    Found by
+                    <input type="text" name="author_id" placeholder="Author" required>
+                </p>
+                <p>
+                    <input type="text" name="tags" placeholder="tags, comma, separated">
+                </p>
+            </div>
+            <div id="post_body">
+                <h3>
+                    <input type="text" name="address" placeholder="Address">
+                </h3>
+                <p>
+                    <textarea name="content" placeholder="Write your post here..." rows="6" cols="40"></textarea>
+                </p>
+            </div>
+            <button type="submit">Create Post</button>
+        </form>
+    </main>
+<footer>
+    <p>This website was produced by Team LocalFinds as a project for Indiana University Southeast.</p>
+</footer>
+</body>
+</html>

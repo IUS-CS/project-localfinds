@@ -10,7 +10,7 @@ endif
 # -------- VARIABLES --------
 
 VENV = venv
-APP = src/backend.py
+APP = src/localfinds/app.py
 
 ifeq ($(WINDOWS),1)
 	PYTHON = python

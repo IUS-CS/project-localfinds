@@ -1,6 +1,6 @@
 import sqlite3
 
-posts_db = "./src/database/posts.db"
+posts_db = "./data/posts.db"
 
 def initialize_db(db_path):
     conn = sqlite3.connect(db_path)
@@ -23,7 +23,7 @@ def initialize_db(db_path):
     conn.close()
 
 
-def create_post(db_path, subject, content, author_id, address, tags=None):
+def store_post(db_path, subject, content, author_id, address, tags=None):
     conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
 

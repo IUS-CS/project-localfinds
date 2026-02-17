@@ -1,29 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
-    <!-- This is a template document. Anything in brackets corresponds to a category in the database. -->
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="LocalFinds is the place to go to find local parks, small businesses, and unique spots in your area.">
         <title>
-            [subject] | LocalFinds
+            {{ post.subject }} | LocalFinds
         </title>
     </head>
     <body>
         <header>
-            <a href="index.html">
-                <img src="lflogo.svg" alt="LocalFinds" class="logo">
+            <a href="{{ url_for('home') }}">
+                <img src="{{ url_for('static', filename='images/lflogo.png') }}" alt="LocalFinds" class="logo">
             </a>
         </header>
         <main>
             <div id="post_head">
-                <h1>[subject]</h1>
-                <p>Found by <span>[author_id]</span> on <span>[created_at]</span>. Last updated <span>[updated_at]</span>.</p>
-                <p>[tags]</p>
+                <h1>{{ post.subject }}</h1>
+                <p>Found by <span>{{ post.author_id }}</span> on <span>{{ post.created_at }}</span>. Last updated <span>{{ post.updated_at }}</span>.</p>
+                <p>{{ post.tags }}</p>
             </div>
             <div id="post_body">
-                <h3>[address]</h3>
-                <p>[content]</p>
+                <h3>{{ post.address }}</h3>
+                <p>{{ post.content }}</p>
             </div>
         </main>
         <footer>

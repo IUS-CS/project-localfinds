@@ -1,9 +1,8 @@
-import sqlite3
 import pytest 
 import tempfile
 import os
 import time
-from posts_db import initialize_db, create_post, get_post, get_all_posts, update_post, delete_post, clear_posts
+from src.localfinds.database.posts_db import initialize_db, store_post, get_post, get_all_posts, update_post, delete_post, clear_posts
 
 # Run 'pytest -v' to run test functions in this file. Make sure to have pytest is installed.
 
@@ -18,8 +17,8 @@ def temp_db():
     os.remove(db_path)
 
 
-def test_create_post(temp_db):
-    create_post(temp_db, "Hello", "First post", "user1", "123 Street", "intro")
+def test_store_post(temp_db):
+    store_post(temp_db, "Hello", "First post", "user1", "123 Street", "intro")
     post = get_post(temp_db, 1)
     assert post["subject"] == "Hello"
     assert post["content"] == "First post"
@@ -28,7 +27,7 @@ def test_create_post(temp_db):
     assert post["tags"] == "intro"
 
 def test_get_post(temp_db):
-    create_post(temp_db,"Test Post", "This is the content", "user1", "123 Street", "test, sample")
+    store_post(temp_db,"Test Post", "This is the content", "user1", "123 Street", "test, sample")
     post = get_post(temp_db, 1) 
     assert post is not None
     assert post["subject"] == "Test Post"           
@@ -39,10 +38,10 @@ def test_get_post(temp_db):
 
 
 def test_get_all_posts(temp_db):
-    create_post(temp_db, "Post A", "Content A", "user1", "Addr1")
+    store_post(temp_db, "Post A", "Content A", "user1", "Addr1")
     # Ensure diferent timestamp.
     time.sleep(1)
-    create_post(temp_db, "Post B", "Content B", "user2", "Addr2")
+    store_post(temp_db, "Post B", "Content B", "user2", "Addr2")
     posts = get_all_posts(temp_db)
     assert len(posts) == 2
     # Check order by updated_at DESC
@@ -51,7 +50,7 @@ def test_get_all_posts(temp_db):
 
 
 def test_update_post(temp_db):
-    create_post(temp_db, "Old Title", "Old Content", "user1", "Addr1")
+    store_post(temp_db, "Old Title", "Old Content", "user1", "Addr1")
     update_post(temp_db, 1, "New Title", "New Content", "New Addr", "tag1")
     post = get_post(temp_db, 1)
     assert post["subject"] == "New Title"
@@ -61,14 +60,14 @@ def test_update_post(temp_db):
 
 
 def test_delete_post(temp_db):
-    create_post(temp_db, "Temp", "Temp Content", "user1", "Addr1")
+    store_post(temp_db, "Temp", "Temp Content", "user1", "Addr1")
     delete_post(temp_db, 1)
     posts = get_all_posts(temp_db)
     assert len(posts) == 0
 
 def test_clear_posts(temp_db):
-    create_post(temp_db, "Temp1", "Temp Content 1", "user1", "Addr1")
-    create_post(temp_db, "Temp2", "Temp Content 2", "user2", "Addr2")
+    store_post(temp_db, "Temp1", "Temp Content 1", "user1", "Addr1")
+    store_post(temp_db, "Temp2", "Temp Content 2", "user2", "Addr2")
     clear_posts(temp_db)
     posts = get_all_posts(temp_db)
     assert len(posts) == 0
