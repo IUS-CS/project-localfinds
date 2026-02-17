@@ -41,7 +41,7 @@ run:
 ifeq ($(DEPLOY),1)
 	$(PY) -m gunicorn src.localfinds.app:app --bind 0.0.0.0:${PORT}
 else
-	$(PY) $(APP)
+	$(PY) -m src.localfinds.app
 endif
 
 debug:
