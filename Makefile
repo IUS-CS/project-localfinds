@@ -11,6 +11,7 @@ endif
 
 VENV = venv
 APP = src/localfinds/app.py
+DEPLOY ?= 0
 
 ifeq ($(WINDOWS),1)
 	PYTHON = python
@@ -37,7 +38,11 @@ setup: venv install
 
 # -------- RUN APP --------
 run:
+ifeq ($(DEPLOY),1)
+	$(PY) -m gunicorn src.localfinds.app:app --bind 0.0.0.0:${PORT}
+else
 	$(PY) $(APP)
+endif
 
 debug:
 	FLASK_ENV=development $(PY) $(APP)

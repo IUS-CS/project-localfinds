@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for
-from database.posts_db import initialize_db, store_post, get_post, get_all_posts, clear_posts, posts_db
+from src.localfinds.database.posts_db import initialize_db, store_post, get_post, get_all_posts, clear_posts, posts_db
 
 app = Flask(__name__, template_folder="./templates")
 
