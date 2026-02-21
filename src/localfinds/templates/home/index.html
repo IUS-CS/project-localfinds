@@ -30,7 +30,7 @@
                 <tbody>
                     {% for post in posts %}
                     <tr>
-                        {{render_partial('shared/partials/post_view.html')}}
+                        {{ render_partial('shared/partials/post_view.html', post=post) }}
                     </tr>
                     {% else %}
                     <tr>
