@@ -1,7 +1,9 @@
 from flask import Flask, render_template, request, redirect, url_for
+import jinja_partials
 from src.localfinds.database.posts_db import initialize_db, store_post, get_post, get_all_posts, clear_posts, posts_db
 
 app = Flask(__name__, template_folder="./templates")
+jinja_partials.register_extensions(app)
 
 # ------------Initialize Database------------
 initialize_db(posts_db)

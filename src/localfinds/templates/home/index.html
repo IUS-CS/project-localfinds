@@ -1,18 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="LocalFinds is the place to go to find local parks, small businesses, and unique spots in your area.">
+        {{render_partial('shared/partials/metadata.html')}}
         <title>
             Home | LocalFinds
         </title>
     </head>
     <body>
         <header>
-            <a href="{{ url_for('home') }}">
-                <img src="{{ url_for('static', filename='images/lflogo.png') }}" alt="LocalFinds" class="logo">
-            </a>
+            {{render_partial('shared/partials/header.html')}}
         </header>
         <main>
             <div>
@@ -34,13 +30,7 @@
                 <tbody>
                     {% for post in posts %}
                     <tr>
-                        <td>
-                            <a href="{{ url_for('serve_post', post_id=post['id']) }}">{{ post.subject }}</a>
-                        </td>
-                        <td>{{ post.address }}</td>
-                        <td>{{ post.tags }}</td>
-                        <td>{{ post.author_id }}</td>
-                        <td>{{ post.created_at }}</td>
+                        {{render_partial('shared/partials/post_view.html')}}
                     </tr>
                     {% else %}
                     <tr>
@@ -51,7 +41,8 @@
             </table>
         </main>
         <footer>
-            <p>This website was produced by Team LocalFinds as a project for Indiana University Southeast.</p>
+            {{render_partial('shared/partials/footer.html')}}
         </footer>
+        
     </body>
 </html>
