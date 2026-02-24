@@ -1,7 +1,9 @@
 from flask import Flask, render_template, request, redirect, url_for
+import jinja_partials
 from src.localfinds.database.posts_db import initialize_db, store_post, get_post, get_all_posts, clear_posts, posts_db
 
 app = Flask(__name__, template_folder="./templates")
+jinja_partials.register_extensions(app)
 
 # ------------Initialize Database------------
 initialize_db(posts_db)
@@ -20,13 +22,13 @@ store_post(
 @app.route("/")
 def home():
     posts = get_all_posts(posts_db) 
-    return render_template("index.html", posts=posts)
+    return render_template("home/index.html", posts=posts)
 
 @app.route("/post/<int:post_id>")
 def serve_post(post_id):
     post = get_post(posts_db, post_id)
     if post:
-        return render_template("view_post.html", post=post)
+        return render_template("home/view_post.html", post=post)
     else:
         return "Post not found", 404
     
@@ -49,8 +51,7 @@ def create_post():
         )
 
         return redirect(url_for("home"))
-
-    return render_template("create_post.html")
+    return render_template("home/create_post.html")
 
 # ------------Run App------------
 
