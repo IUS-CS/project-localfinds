@@ -3,34 +3,20 @@
 {% block title %}Home | LocalFinds{% endblock %}
 
 {% block content %}
-<div class="table-header">
-    <h2>Newest Finds:</h2>
-    {% if 'user_id' in session %}
-    <a href="{{ url_for('create_post') }}">
-        <button>Create New Post</button>
-    </a>
-    {% endif %}
-</div>
-<table>
+<table class="posts-table">
     <thead>
-        <tr>
-            <th>Subject</th>
-            <th>Address</th>
-            <th>Tags</th>
-            <th>Author</th>
-            <th>Created At</th>
-        </tr>
+        <th>Newest Finds:</th>
     </thead>
-    <tbody>
+    <tbody class="posts-records">
         {% for post in posts %}
-        <tr>
-            <td>
+        <tr class="record">
+            <td class="subject">
                 <a href="{{ url_for('serve_post', post_id=post['id']) }}">{{ post.subject }}</a>
             </td>
-            <td>{{ post.address }}</td>
-            <td>{{ post.tags }}</td>
-            <td>{{ post.author_id }}</td>
-            <td>{{ post.created_at }}</td>
+            <td class="address">{{ post.address }}</td>
+            <td class="tags">{{ post.tags }}</td>
+            <td class="author">{{ post.author_id }}</td>
+            <td class="created_at">{{ post.created_at }}</td>
         </tr>
         {% else %}
         <tr>

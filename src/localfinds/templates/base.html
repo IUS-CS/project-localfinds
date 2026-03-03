@@ -9,15 +9,18 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-    <!-- Header -->
-    {% include 'shared/partials/header.html' %}
+    <div class="page-wrapper">
+        <!-- Header -->
+        {% include 'shared/partials/header.html' %}
 
-    <!-- Main content -->
-    <main>
-        {% block content %}{% endblock %}
-    </main>
-
+        <!-- Main content -->
+        <main>
+            {% block content %}{% endblock %}
+        </main>
+    </div> 
+    
     <!-- Footer -->
     {% include 'shared/partials/footer.html' %}
+    
 </body>
 </html>

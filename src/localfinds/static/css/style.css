@@ -1,199 +1,220 @@
+/* GOOGLE FONTS */
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+
+/* VARIABLES */
 :root {
-    --primary-color: #b72121;
-    --text-light: #ffffff;
-    --text-dark: #000000;
-    --border-color: #b72121;
-    --hover-btn: #ffffff;
+    /* Colors */
+    --color-bg: #fafafa;
+    --color-text: #444;
+    --color-link: #0077cc;
+    --color-link-hover: #005fa3;
+    --color-error: #ff0099;
+    --color-button-bg: #FEE996;
+    --color-footer-text: #aaa;
+    --color-border: #ddd;
+    --color-table-border: #aaa;
+
+    /* Fonts */
+    --font-primary: 'Quicksand', sans-serif;
+    --font-secondary: 'Lato', sans-serif;
+
+    /* Font sizes */
+    --font-base: 1.2rem;
+    --font-small: 0.8em;
+    --font-large: 2.4em;
+    --font-table-header: 1.6em;
+
+    /* Spacing */
+    --spacing-base: 20px;
+    --spacing-page: 40px;
+    --spacing-form-padding: 30px;
+    --spacing-btn-padding: 10px 16px;
+    --spacing-border-radius: 4px;
+    --spacing-btn-radius: 36px;
+
+    /* Table widths */
+    --table-width: 90%;
 }
 
-body {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    font-family: Arial, sans-serif;
-}
-
-main { flex: 1; }
-
-.site-header, .site-footer {
-    padding: 10px 20px;
-    background-color: var(--primary-color);
-}
-
-.site-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid var(--border-color);
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-}
-
-.site-footer {
-    text-align: center;
-    border-top: 1px solid var(--border-color);
-    font-size: 0.9rem;
-    color: var(--text-light);
-}
-
-.logo { 
-    height: 50px; width: auto; 
-}
-
-.header-nav {
-    display: flex;
-    gap: 15px; 
-    align-items: center;
-}
-
-.username { 
-    font-weight: bold; color: var(--text-light); 
-}
-
-.header-nav .btn {
-    text-decoration: none;
-    padding: 6px 12px;
-    background-color: var(--text-light);
-    color: #000;
-    border-radius: 4px;
-    transition: background-color 0.2s ease;
-}
-
-.header-nav .btn:hover { 
-    background-color: var(--hover-btn); 
-}
-
-/* Buttons (reuse) */
-button, .table-header a > button, div > a > button {
-    display: inline-block;
-    padding: 10px 20px;
-    font-size: 1rem;
-    font-weight: bold;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-}
-
-button[type="submit"] { 
-    background-color: var(--text-light); color: #000; 
-}
-
-button[type="submit"]:hover { 
-    background-color: var(--primary-color); color: var(--text-light); 
-}
-
-.table-header a > button, div > a > button { 
-    background-color: var(--primary-color); color: var(--text-light); 
-}
-
-.table-header a > button:hover, div > a > button:hover { 
-    background-color: var(--primary-color); 
-}
-
-form, #post_head, #post_body, #login_form, #create_account_form {
-    max-width: 800px;
-    margin: 30px auto;
-    padding: 20px 25px;
-    background-color: var(--primary-color);
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-    color: var(--text-light);
-}
-
-input[type="text"], input[type="password"], textarea {
-    width: 100%;
-    padding: 10px;
-    margin: 5px 0 15px 0;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 1rem;
+/* BASE */
+* {
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
 }
 
-textarea { 
-    resize: vertical; 
+html, body {
+    height: 100%;
 }
 
-input::placeholder, textarea::placeholder { 
-    color: #aaa; 
+body {
+    font-family: var(--font-primary);
+    font-size: var(--font-base);
+    letter-spacing: 1px;
+    background: var(--color-bg);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
-#post_head h1, #login_form h1:first-of-type, #create_account_form h1:first-of-type {
-    margin-top: 0;
-    margin-bottom: 10px;
-    font-size: 2rem;
-    text-align: center;
+.page-wrapper {
+    padding: var(--spacing-base) var(--spacing-page);
 }
 
-#post_body h3 { margin: 0 0 15px 0; font-size: 1.3rem; }
-
-
-#post_head p:first-of-type { 
-    font-size: 0.9rem; margin-bottom: 10px; 
+ul {
+    list-style: none;
 }
 
-#post_head p:nth-of-type(2) { 
-    font-size: 0.85rem; margin-bottom: 0; 
+a {
+    text-decoration: none;
+    color: var(--color-link);
+    cursor: pointer;
 }
 
-table {
+a:hover {
+    color: var(--color-link-hover);
+    text-decoration: underline;
+}
+
+/* LAYOUT - HEADER */
+.site-header {
     width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 40px;
-}
-
-table thead th {
-    background-color: var(--primary-color);
-    color: var(--text-light);
-    text-align: left;
-    padding: 10px;
-    border: 1px solid var(--border-color);
-}
-
-table tbody td {
-    padding: 10px;
-    border: 1px solid var(--border-color);
-    vertical-align: top;
-}
-
-table tbody tr:hover { 
-    background-color: #f1f1f1; 
-}
-
-table a { 
-    color: var(--primary-color); text-decoration: none; 
-}
-
-table a:hover { 
-    text-decoration: underline; 
-}
-
-table tbody td[colspan="5"] { 
-    text-align: center; font-style: italic; color: #666; 
-}
-
-.table-header {
+    height: 120px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 30px 0 20px 0;
 }
 
-.table-header h2 { margin: 0; color: var(--text-dark); }
-
-
-@media (max-width: 600px) {
-    form, #post_head, #post_body, #login_form, #create_account_form { padding: 15px; margin: 20px 10px; }
-    #post_head h1 { font-size: 1.5rem; }
-    #post_body h3 { font-size: 1.1rem; }
+.left-header,
+.account-nav {
+    display: flex;
+    align-items: center;
+    gap: 20px;
 }
 
-#login_form a {
-    color: #ffffff;          
-    text-decoration: none;
-    font-weight: bold;
+.site-header img {
+    width: 80px;
+    margin-right: 40px;
+}
+
+/* NAVIGATION */
+nav ul {
+    display: flex;
+    align-items: center;
+}
+
+nav li {
+    margin-left: 20px;
+}
+
+nav li a {
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: var(--font-small);
+    letter-spacing: 2px;
+}
+
+/* BUTTONS */
+button,
+.btn {
     display: inline-block;
-    margin-top: 15px;
-    transition: color 0.2s ease;
+    border-radius: var(--spacing-btn-radius);
+    background: var(--color-button-bg);
+    border: none;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: var(--font-small);
+    padding: var(--spacing-btn-padding);
+    letter-spacing: 2px;
+    cursor: pointer;
+}
+
+/* FORMS */
+form {
+    width: 60%;
+    margin: 0 auto;
+    padding: var(--spacing-form-padding);
+    background: white;
+    border-radius: 10px;
+    box-shadow: 1px 2px 3px rgba(0,0,0,0.1);
+}
+
+form h2 {
+    font-size: var(--font-large);
+    font-weight: 900;
+    margin-bottom: 40px;
+}
+
+input,
+textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: var(--spacing-border-radius);
+    border: 1px solid var(--color-border);
+    font-size: 1em;
+}
+
+label {
+    display: block;
+    margin: 20px 0 10px;
+}
+
+.error-message {
+    color: var(--color-error);
+    font-size: var(--font-small);
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+/* TABLES */
+table {
+    width: var(--table-width);
+    background: white;
+    margin: 0 auto;
+    border-radius: 12px;
+    font-family: var(--font-secondary);
+    color: var(--color-text);
+}
+
+th {
+    font-size: var(--font-table-header);
+}
+
+.record {
+    display: flex;
+    padding: 20px 10px;
+    justify-content: space-around;
+}
+
+.subject,
+.address,
+.tags,
+.author,
+.created_at {
+    padding-left: 10px;
+    border-right: 2px solid var(--color-table-border);
+}
+.subject{
+    width: 20%;
+}
+.address{
+    width: 35%;
+}
+.tags{
+    width: 20%;
+}
+.author{
+    width: 15%;
+}
+.created_at {
+    border-right: none;
+}
+
+/* FOOTER */
+footer {
+    margin-top: auto;
+    text-align: center;
+    color: var(--color-footer-text);
+    padding: 30px 0;
 }

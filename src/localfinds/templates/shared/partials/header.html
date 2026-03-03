@@ -1,9 +1,19 @@
 <header class="site-header">
-    <a href="{{ url_for('home') }}" class="logo-link">
-        <img src="{{ url_for('static', filename='images/lflogo.png') }}" alt="LocalFinds" class="logo">
-    </a>
+    <div class="left-header">
+        <a href="{{ url_for('home') }}" class="logo-link">
+            <img src="{{ url_for('static', filename='images/lflogo.png') }}" alt="LocalFinds" class="logo">
+        </a>
 
-    <nav class="header-nav">
+        <div class="new-post-button">
+            {% if 'user_id' in session %}
+                <a href="{{ url_for('create_post') }}">
+                    <button>Create New Post</button>
+                </a>
+            {% endif %}
+        </div>
+    </div>
+    
+    <nav class="account-nav">
         {% if 'user_id' in session %}
             <span class="username">{{ session.username }}</span>
             <a href="{{ url_for('logout') }}" class="btn">Logout</a>

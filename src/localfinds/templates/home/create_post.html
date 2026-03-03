@@ -4,7 +4,7 @@
 
 {% block content %}
 <form method="POST">
-    <div id="post_head">
+    <div class="post_head">
         <h1>
             <input type="text" name="subject" placeholder="Subject" required>
         </h1>
@@ -12,7 +12,7 @@
             <input type="text" name="address" placeholder="Address" required>
         </h3>
     </div>
-    <div id="post_body">
+    <div class="post_body">
        
         <p>
             <input type="text" name="tags" placeholder="tags, comma, separated" required>
@@ -21,6 +21,6 @@
             <textarea name="content" placeholder="Write your post here..." rows="6" cols="40" required></textarea>
         </p>
     </div>
-    <button type="submit">Create Post</button>
+    <button type="submit">Post Your Find</button>
 </form>
 {% endblock %}

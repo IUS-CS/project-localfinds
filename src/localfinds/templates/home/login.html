@@ -4,7 +4,7 @@
 
 {% block content %}
 {% if error %}
-    <p class="error">{{ error }}</p>
+    <p class="error-message">{{ error }}</p>
 {% endif %}
 <form method="POST">
     <div id="login_form">
@@ -17,7 +17,7 @@
         <p>
             <input type="password" name="password" placeholder="password" required>
         </p>
-    <button type="submit">Login</button>
+    <button type="submit-post-button">Login</button>
     <a href="{{ url_for('create_account') }}">
          Create Account
     </a>
