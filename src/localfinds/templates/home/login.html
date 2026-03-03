@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}Login | LocalFinds{% endblock %}
+
+{% block content %}
+{% if error %}
+    <p class="error">{{ error }}</p>
+{% endif %}
+<form method="POST">
+    <div id="login_form">
+        <h1>
+            Login
+        </h1>
+        <h1>
+            <input type="text" name="username" placeholder="username" required>
+        </h1>
+        <p>
+            <input type="password" name="password" placeholder="password" required>
+        </p>
+    <button type="submit">Login</button>
+    <a href="{{ url_for('create_account') }}">
+         Create Account
+    </a>
+</form>
+{% endblock %}

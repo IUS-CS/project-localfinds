@@ -1,48 +1,42 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        {{render_partial('shared/partials/metadata.html')}}
-        <title>
-            Home | LocalFinds
-        </title>
-    </head>
-    <body>
-        <header>
-            {{render_partial('shared/partials/header.html')}}
-        </header>
-        <main>
-            <div>
-                <a href="{{ url_for('create_post') }}">
-                    <button>Create New Post</button>
-                </a>
-            </div>
-            <h2>Newest Finds:</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Subject</th>
-                        <th>Address</th>
-                        <th>Tags</th>
-                        <th>Author</th>
-                        <th>Created At</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for post in posts %}
-                    <tr>
-                        {{ render_partial('shared/partials/post_view.html', post=post) }}
-                    </tr>
-                    {% else %}
-                    <tr>
-                        <td colspan="5">No posts yet.</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </main>
-        <footer>
-            {{render_partial('shared/partials/footer.html')}}
-        </footer>
-        
-    </body>
-</html>
+{% extends "base.html" %}
+
+{% block title %}Home | LocalFinds{% endblock %}
+
+{% block content %}
+<div class="table-header">
+    <h2>Newest Finds:</h2>
+    {% if 'user_id' in session %}
+    <a href="{{ url_for('create_post') }}">
+        <button>Create New Post</button>
+    </a>
+    {% endif %}
+</div>
+<table>
+    <thead>
+        <tr>
+            <th>Subject</th>
+            <th>Address</th>
+            <th>Tags</th>
+            <th>Author</th>
+            <th>Created At</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for post in posts %}
+        <tr>
+            <td>
+                <a href="{{ url_for('serve_post', post_id=post['id']) }}">{{ post.subject }}</a>
+            </td>
+            <td>{{ post.address }}</td>
+            <td>{{ post.tags }}</td>
+            <td>{{ post.author_id }}</td>
+            <td>{{ post.created_at }}</td>
+        </tr>
+        {% else %}
+        <tr>
+            <td colspan="5">No posts yet.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

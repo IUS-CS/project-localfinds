@@ -1,28 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        {{render_partial('shared/partials/metadata.html')}}
-        <title>
-            {{ post.subject }} | LocalFinds
-        </title>
-    </head>
-    <body>
-        <header>
-            {{render_partial('shared/partials/header.html')}}
-        </header>
-        <main>
-            <div id="post_head">
-                <h1>{{ post.subject }}</h1>
-                <p>Found by <span>{{ post.author_id }}</span> on <span>{{ post.created_at }}</span>. Last updated <span>{{ post.updated_at }}</span>.</p>
-                <p>{{ post.tags }}</p>
-            </div>
-            <div id="post_body">
-                <h3>{{ post.address }}</h3>
-                <p>{{ post.content }}</p>
-            </div>
-        </main>
-        <footer>
-            {{render_partial('shared/partials/footer.html')}}
-        </footer>
-    </body>
-</html>
+{% extends "base.html" %}
+
+{% block title %}{{ post.subject }} | LocalFinds{% endblock %}
+
+{% block content %}
+<div id="post_head">
+    <h1>{{ post.subject }}</h1>
+    <p>Found by <span>{{ post.author_id }}</span> on <span>{{ post.created_at }}</span>. Last updated <span>{{ post.updated_at }}</span>.</p>
+    <p>{{ post.tags }}</p>
+</div>
+<div id="post_body">
+    <h3>{{ post.address }}</h3>
+    <p>{{ post.content }}</p>
+</div>
+{% endblock %}

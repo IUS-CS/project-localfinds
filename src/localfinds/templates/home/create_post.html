@@ -1,42 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        {{render_partial('shared/partials/metadata.html')}}
-        <title>
-            Create Post | LocalFinds
-        </title>
-    </head>
-    <body>
-        <header>
-            {{render_partial('shared/partials/header.html')}}
-        </header>
-    <main>
-        <form method="POST">
-            <div id="post_head">
-                <h1>
-                    <input type="text" name="subject" placeholder="Subject" required>
-                </h1>
-                <p>
-                    Found by
-                    <input type="text" name="author_id" placeholder="Author" required>
-                </p>
-                <p>
-                    <input type="text" name="tags" placeholder="tags, comma, separated">
-                </p>
-            </div>
-            <div id="post_body">
-                <h3>
-                    <input type="text" name="address" placeholder="Address">
-                </h3>
-                <p>
-                    <textarea name="content" placeholder="Write your post here..." rows="6" cols="40"></textarea>
-                </p>
-            </div>
-            <button type="submit">Create Post</button>
-        </form>
-    </main>
-    <footer>
-        {{render_partial('shared/partials/footer.html')}}
-    </footer>
-    </body>
-</html>
+{% extends "base.html" %}
+
+{% block title %}Create Post | LocalFinds{% endblock %}
+
+{% block content %}
+<form method="POST">
+    <div id="post_head">
+        <h1>
+            <input type="text" name="subject" placeholder="Subject" required>
+        </h1>
+         <h3>
+            <input type="text" name="address" placeholder="Address" required>
+        </h3>
+    </div>
+    <div id="post_body">
+       
+        <p>
+            <input type="text" name="tags" placeholder="tags, comma, separated" required>
+        </p>
+        <p>
+            <textarea name="content" placeholder="Write your post here..." rows="6" cols="40" required></textarea>
+        </p>
+    </div>
+    <button type="submit">Create Post</button>
+</form>
+{% endblock %}

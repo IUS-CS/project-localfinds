@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="LocalFinds is the place to go to find local parks, small businesses, and unique spots in your area.">
+    <title>{% block title %}LocalFinds{% endblock %}</title>
+    <!-- Include CSS once here -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <!-- Header -->
+    {% include 'shared/partials/header.html' %}
+
+    <!-- Main content -->
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    {% include 'shared/partials/footer.html' %}
+</body>
+</html>
