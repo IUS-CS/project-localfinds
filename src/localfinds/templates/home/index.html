@@ -11,25 +11,13 @@
             {{render_partial('shared/partials/header.html')}}
         </header>
         <main>
-            <div>
-                <a href="{{ url_for('create_post') }}">
-                    <button>Create New Post</button>
-                </a>
-            </div>
-            <h2>Newest Finds:</h2>
-            <table>
+            <table class="previewhost">
                 <thead>
-                    <tr>
-                        <th>Subject</th>
-                        <th>Address</th>
-                        <th>Tags</th>
-                        <th>Author</th>
-                        <th>Created At</th>
-                    </tr>
+                    <th>Newest Finds:</th>
                 </thead>
-                <tbody>
+                <tbody class="previewcontainer">
                     {% for post in posts %}
-                    <tr>
+                    <tr class="preview">
                         {{ render_partial('shared/partials/post_view.html', post=post) }}
                     </tr>
                     {% else %}
