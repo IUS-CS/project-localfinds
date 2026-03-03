@@ -1,9 +1,7 @@
 import sqlite3
 
-posts_db = "./data/posts.db"
-
-def initialize_db(db_path):
-    conn = sqlite3.connect(db_path)
+def initialize_posts_db(posts_db):
+    conn = sqlite3.connect(posts_db)
     cursor = conn.cursor()
 
     cursor.execute("""
@@ -23,8 +21,8 @@ def initialize_db(db_path):
     conn.close()
 
 
-def store_post(db_path, subject, content, author_id, address, tags=None):
-    conn = sqlite3.connect(db_path)
+def store_post(posts_db, subject, content, author_id, address, tags=None):
+    conn = sqlite3.connect(posts_db)
     cursor = conn.cursor()
 
     cursor.execute("""
@@ -36,8 +34,8 @@ def store_post(db_path, subject, content, author_id, address, tags=None):
     conn.close()
 
 
-def get_post(db_path, post_id):
-    conn = sqlite3.connect(db_path)
+def get_post(posts_db, post_id):
+    conn = sqlite3.connect(posts_db)
     conn.row_factory = sqlite3.Row
     cursor = conn.cursor()
     
@@ -48,8 +46,8 @@ def get_post(db_path, post_id):
     return dict(post) if post else None
 
 
-def get_all_posts(db_path):
-    conn = sqlite3.connect(db_path)
+def get_all_posts(posts_db):
+    conn = sqlite3.connect(posts_db)
     conn.row_factory = sqlite3.Row
     cursor = conn.cursor()
 
@@ -60,8 +58,8 @@ def get_all_posts(db_path):
     return [dict(post) for post in posts]
 
 
-def update_post(db_path, post_id, subject, content, address, tags=None):
-    conn = sqlite3.connect(db_path)
+def update_post(posts_db, post_id, subject, content, address, tags=None):
+    conn = sqlite3.connect(posts_db)
     cursor = conn.cursor()
 
     cursor.execute("""
@@ -74,8 +72,8 @@ def update_post(db_path, post_id, subject, content, address, tags=None):
     conn.close()
 
 
-def delete_post(db_path, post_id):
-    conn = sqlite3.connect(db_path)
+def delete_post(posts_db, post_id):
+    conn = sqlite3.connect(posts_db)
     cursor = conn.cursor()
 
     cursor.execute("DELETE FROM posts WHERE id = ?", (post_id,))
@@ -83,8 +81,8 @@ def delete_post(db_path, post_id):
     conn.commit()
     conn.close()
 
-def clear_posts(db_path):
-    conn = sqlite3.connect(db_path)
+def clear_posts(posts_db):
+    conn = sqlite3.connect(posts_db)
     cursor = conn.cursor()
 
     cursor.execute("DELETE FROM posts")

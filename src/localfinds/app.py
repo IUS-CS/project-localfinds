@@ -1,13 +1,27 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session
 import jinja_partials
-from src.localfinds.database.posts_db import initialize_db, store_post, get_post, get_all_posts, clear_posts, posts_db
+from src.localfinds.database.posts_db import initialize_posts_db, store_post, get_post, get_all_posts, clear_posts
+from src.localfinds.database.accounts_db import initialize_accounts_db, store_account, get_account, get_account_by_username, update_account, delete_account, clear_accounts
+
+accounts_db = "./data/accounts.db"
+posts_db = "./data/posts.db"
 
 app = Flask(__name__, template_folder="./templates")
+app.secret_key = 'localfindsprivatekey'
 jinja_partials.register_extensions(app)
 
 # ------------Initialize Database------------
-initialize_db(posts_db)
+initialize_accounts_db(accounts_db)
+initialize_posts_db(posts_db)
+
+clear_accounts(accounts_db)
 clear_posts(posts_db) 
+
+store_account(
+    accounts_db,
+    "admin",
+    "password"
+)
 store_post(
     posts_db,
     "Welcome to LocalFinds!",
@@ -39,7 +53,7 @@ def create_post():
         content = request.form["content"]
         address = request.form["address"]
         tags = request.form["tags"]
-        author_id = request.form["author_id"]
+        author_id = session["username"]
 
         store_post(
             posts_db,
@@ -52,6 +66,50 @@ def create_post():
 
         return redirect(url_for("home"))
     return render_template("home/create_post.html")
+
+@app.route("/create_account", methods=["GET", "POST"])
+def create_account():
+    error = None
+    if request.method == "POST":
+        username = request.form["username"]
+        password = request.form["password"]
+
+        success = store_account(accounts_db, username, password)
+        if not success:
+            error = "Username is taken!"
+            return render_template("home/create_account.html", error=error)
+
+        account = get_account_by_username(accounts_db, username)
+
+        if account and account["password"] == password:
+            session["user_id"] = account["id"]
+            session["username"] = account["username"]
+        return redirect(url_for("home"))
+    
+    return render_template("home/create_account.html", error = error)
+
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    error = None
+    if request.method == "POST":
+        username = request.form["username"]
+        password = request.form["password"]
+
+        account = get_account_by_username(accounts_db, username)
+
+        if account and account["password"] == password:
+            session["user_id"] = account["id"]
+            session["username"] = account["username"]
+            return redirect(url_for("home"))
+        else:
+            error = "Invalid credentials!"
+
+    return render_template("home/login.html", error=error)
+
+@app.route("/logout")
+def logout():
+    session.clear()
+    return redirect(url_for("home"))
 
 # ------------Run App------------
 
