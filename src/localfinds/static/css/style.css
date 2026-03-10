@@ -11,6 +11,7 @@
     --color-link-hover: #005fa3;
     --color-error: #ff0099;
     --color-button-bg: #FEE996;
+    --color-button-bg-hover: #ffe478;
     --color-footer-text: #aaa;
     --color-border: #ddd;
     --color-table-border: #aaa;
@@ -94,8 +95,8 @@ a:hover {
 }
 
 .site-header img {
-    width: 80px;
-    margin-right: 40px;
+    width: 260px;
+    margin-right: 100px;
 }
 
 /* NAVIGATION */
@@ -118,6 +119,7 @@ nav li a {
 /* BUTTONS */
 button,
 .btn {
+    color: var(--color-text);
     display: inline-block;
     border-radius: var(--spacing-btn-radius);
     background: var(--color-button-bg);
@@ -128,6 +130,12 @@ button,
     padding: var(--spacing-btn-padding);
     letter-spacing: 2px;
     cursor: pointer;
+}
+
+.btn:hover {
+    color: var(--color-text);
+    background: var(--color-button-bg-hover);
+    text-decoration: none;
 }
 
 /* FORMS */
