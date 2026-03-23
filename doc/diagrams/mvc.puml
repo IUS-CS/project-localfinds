@@ -1,0 +1,16 @@
+@startuml mvc
+
+actor User
+
+rectangle "View\n (Browser + Jinja Templates)" as View
+rectangle "Controller\n (Flask Routes)" as Controller
+rectangle "Model\n (SQLite Databases)" as Model
+
+User -> View : Interacts\n (UI)
+View -> Controller : HTTP Request
+Controller -> Model : Create/Read/Update/Delete\n Data
+Model --> Controller : (Data)
+Controller -> View : Render Template\n (Jinja)
+View --> User : HTML Response
+
+@enduml
