@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Post | LocalFinds{% endblock %}
+
+{% block content %}
+<form method="POST">
+    <div class="post_head">
+        <h1>
+            <input type="text" name="subject" value="{{ post.subject }}" placeholder="Subject" required>
+        </h1>
+         <h3>
+            <input type="text" name="address" value="{{ post.address }}" placeholder="Address" required>
+        </h3>
+    </div>
+    <div class="post_body">
+       
+        <p>
+            <input type="text" name="tags" value="{{ post.tags }}" placeholder="tags, comma, separated" required>
+        </p>
+        <p>
+            <textarea name="content" placeholder="Write your post here..." rows="6" cols="40" required>{{ post.content }}</textarea>
+        </p>
+    </div>
+    <button type="submit" class="btn">Save Changes</button>
+    <a href="{{ url_for('remove_post', post_id=post.id) }}">Delete Post</a>
+</form>
+{% endblock %}
