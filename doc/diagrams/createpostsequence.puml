@@ -1,0 +1,15 @@
+@startuml createpostsequence
+
+actor User
+participant Browser
+participant "Flask Controller" as Flask
+participant "Posts DB (SQLite)" as PostsDB
+
+User -> Browser : Fill out post form
+Browser -> Flask : POST /posts
+Flask -> Flask : Validate input
+Flask -> PostsDB : INSERT post
+PostsDB --> Flask : Success
+Flask --> Browser : Redirect to homepage
+Browser --> User : Updated post list
+@enduml

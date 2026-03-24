@@ -1,0 +1,10 @@
+@startuml accountsdb
+
+entity Accounts {
+  +id : INTEGER <<PK>>
+  +username : TEXT <<NOT NULL>> <<UNIQUE>>
+  +password : TEXT <<NOT NULL>>
+  +joined : DATETIME <<DEFAULT CURRENT_TIMESTAMP>>
+}
+
+@enduml

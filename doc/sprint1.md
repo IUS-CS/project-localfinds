@@ -31,9 +31,9 @@ This sprint, we completed:
 
 Here are screenshots of the website in its current state:
 
-![Home Page](/doc/images/screenshot1.png)
-![View Post Page](/doc/images/screenshot2.png)
-![Create Post Page](/doc/images/screenshot3.png)
+![Home Page](/doc/images/sprint1/screenshot1.png)
+![View Post Page](/doc/images/sprint1/screenshot2.png)
+![Create Post Page](/doc/images/sprint1/screenshot3.png)
 
 ## Retro
 

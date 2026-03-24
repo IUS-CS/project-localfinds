@@ -1,0 +1,19 @@
+@startuml Overview
+
+package "Frontend/Client Browser" {
+  [Browser] as browser
+}
+
+package "Backend Server (Render)" {
+  [Flask App] as flask
+  package "Databases" {
+    [Accounts DB (SQLite)] as accounts_db
+    [Posts DB (SQLite)] as posts_db
+  }
+}
+
+browser <--> flask
+flask <--> accounts_db
+flask <--> posts_db
+
+@enduml
