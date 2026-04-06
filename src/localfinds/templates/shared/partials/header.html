@@ -3,18 +3,13 @@
         <a href="{{ url_for('home') }}" class="logo-link">
             <img src="{{ url_for('static', filename='images/lflogo_banner.svg') }}" alt="LocalFinds" class="logo">
         </a>
-
-        <div class="new-post-button">
-            {% if 'user_id' in session %}
-                <a href="{{ url_for('create_post') }}">
-                    <button class="btn">Create New Post</button>
-                </a>
-            {% endif %}
-        </div>
     </div>
     
     <nav class="account-nav">
         {% if 'user_id' in session %}
+            <div class="new-post-button">
+                <a href="{{ url_for('create_post') }}" class="btn">New Find</a>
+            </div>
             <a href="{{ url_for('view_account', username=session['username']) }}">
                 {{ session.username }}
             </a>
