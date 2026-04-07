@@ -10,7 +10,6 @@ LocalFinds will provide several essential features that enhance user experience 
 ## Technology Stack
 - **HTML** – Used to create the structure and content of the website pages, including layouts, text, images, and navigation elements.
 - **CSS** – Responsible for styling and visual design, such as colors, spacing, fonts, and responsive layout, so the website looks clean and works on different screen sizes.
-- **JavaScript** – Provides interactivity and dynamic functionality.
 - **Python** – Serves as the core backend programming language used to handle application logic, process requests, and connect the front end to the database.
 - **Flask** (Python Framework) – A lightweight web framework used to build the backend of the application. Flask manages routing, server logic, and communication between the user interface and the database, making development faster and more organized.
 - **SQLite** – A lightweight database system used to store location data, descriptions, and other information.

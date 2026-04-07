@@ -24,7 +24,6 @@ LocalFinds was created as a academic collaborative project to:
 ## Technologies Used
 - HTML
 - CSS
-- JavaScript
 - SQLite 
 - Python
 - Render
@@ -46,17 +45,10 @@ LocalFinds was created as a academic collaborative project to:
     ```
     make run
     ```
-### (Optional)
+## Testing
 - Execute all tests.
     ```
     make test
     ```
-- Clear database.
-    ```
-    make reset-db
-    ```
-- Clean-up directory.
-    ```
-    make clean
-    ```
+
 
