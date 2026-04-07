@@ -27,7 +27,7 @@
     --font-table-header: 1.6em;
 
     /* Spacing */
-    --spacing-base: 20px;
+    --spacing-base: 1%;
     --spacing-page: 40px;
     --spacing-form-padding: 30px;
     --spacing-btn-padding: 10px 16px;
@@ -101,7 +101,6 @@ a:hover {
 
 /* NAVIGATION */
 nav ul {
-    display: flex;
     align-items: center;
 }
 
@@ -157,6 +156,7 @@ form h2 {
 input,
 textarea {
     width: 100%;
+    margin: 10px;
     padding: 10px 12px;
     border-radius: var(--spacing-border-radius);
     border: 1px solid var(--color-border);
@@ -175,6 +175,15 @@ label {
     margin-top: 10px;
 }
 
+/* POST CONTENT */
+.post-head {
+    margin-bottom: var(--spacing-base);
+}
+.post-head p, .post-body p, .account p {
+    margin: 10px 0px;
+}
+
+
 /* TABLES */
 table {
     width: var(--table-width);
@@ -190,33 +199,36 @@ th {
 }
 
 .record {
-    display: flex;
+    width: 90%;
     padding: 20px 10px;
     justify-content: space-around;
+    border-bottom: 2px solid var(--color-table-border);
 }
 
-.subject,
-.address,
-.tags,
-.author,
-.created_at {
+.record a {
+    width: 100%;
+    display: contents;
+    color: var(--color-text);
+}
+
+.post-preview {
     padding-left: 10px;
-    border-right: 2px solid var(--color-table-border);
+    padding-right: 30px;
+    border-right: 6px solid var(--color-table-border);
 }
-.subject{
-    width: 20%;
+
+.post-preview:hover {
+    animation: posthover 1s normal;
+    animation-fill-mode: forwards;
 }
-.address{
-    width: 35%;
+
+@keyframes posthover {
+    100% {border-right: 30px solid var(--color-link)};
 }
-.tags{
-    width: 20%;
-}
-.author{
-    width: 15%;
-}
-.created_at {
-    border-right: none;
+
+#subject {
+    font-size: var(--font-table-header);
+    font-weight: bold;
 }
 
 /* FOOTER */
@@ -225,4 +237,45 @@ footer {
     text-align: center;
     color: var(--color-footer-text);
     padding: 30px 0;
+}
+
+/* MOBILE SCREENS */
+@media (max-width: 425px) {
+/* LAYOUT - HEADER */
+.site-header {
+    width: 100%;
+    height: 20%;
+    display: block;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.left-header,
+.account-nav {
+    display: inline;
+    align-items: center;
+    gap: 20px;
+}
+
+.site-header img {
+    width: 260px;
+    margin-right: 20px;
+}
+
+/* NAVIGATION */
+nav ul {
+    align-items: center;
+}
+
+nav li {
+    margin-left: 20px;
+}
+
+nav li a {
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: var(--font-small);
+    letter-spacing: 2px;
+}
+
 }

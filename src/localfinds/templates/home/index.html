@@ -9,18 +9,21 @@
     </thead>
     <tbody class="posts-records">
         {% for post in posts %}
-        <tr class="record">
-            <td class="subject">
-                <a href="{{ url_for('serve_post', post_id=post['id']) }}">{{ post.subject }}</a>
+        <tr>
+            <td class="record">
+                <a href="{{ url_for('serve_post', post_id=post['id']) }}">
+                    <div class="post-preview">
+                        <p id="subject">{{ post.subject }}</p>
+                        <p id="address">{{ post.address }}</p>
+                        <p id="tags">{{ post.tags }}</p>
+                        <p id="creation-details">{{ post.author_id }}, {{ post.created_at }}</p>
+                    </div>
+                </a>
             </td>
-            <td class="address">{{ post.address }}</td>
-            <td class="tags">{{ post.tags }}</td>
-            <td class="author">{{ post.author_id }}</td>
-            <td class="created_at">{{ post.created_at }}</td>
         </tr>
         {% else %}
         <tr>
-            <td colspan="5">No posts yet.</td>
+            <td class="record">No posts yet.</td>
         </tr>
         {% endfor %}
     </tbody>
