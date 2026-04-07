@@ -2,7 +2,7 @@ import pytest
 import tempfile
 import os
 import time
-from src.localfinds.database.posts_db import initialize_posts_db, store_post, get_post, get_all_posts, update_post, delete_post, clear_posts
+from src.localfinds.models.posts import delete_all_posts_by_author, initialize_posts, store_post, get_post, get_all_posts, update_all_posts_author, update_post, delete_post, clear_posts
 
 # Run 'pytest -v' to run test functions in this file. Make sure to have pytest is installed.
 
@@ -12,7 +12,7 @@ def temp_db():
     temp_file = tempfile.NamedTemporaryFile(delete=False, suffix=".db")
     db_path = temp_file.name
     temp_file.close()
-    initialize_posts_db(db_path)
+    initialize_posts(db_path)
     yield db_path  
     os.remove(db_path)
 
@@ -58,12 +58,36 @@ def test_update_post(temp_db):
     assert post["address"] == "New Addr"
     assert post["tags"] == "tag1"
 
+def test_update_all_posts_author(temp_db):
+    store_post(temp_db, "Post 1", "Content 1", "user1", "Addr1")
+    store_post(temp_db, "Post 2", "Content 2", "user1", "Addr2")
+    store_post(temp_db, "Post 3", "Content 3", "user2", "Addr3")
+    
+    update_all_posts_author(temp_db, "user1", "new_user")
+    
+    posts = get_all_posts(temp_db)
+    for post in posts:
+        if post["subject"] in ["Post 1", "Post 2"]:
+            assert post["author_id"] == "new_user"
+        else:
+            assert post["author_id"] == "user2"
 
 def test_delete_post(temp_db):
     store_post(temp_db, "Temp", "Temp Content", "user1", "Addr1")
     delete_post(temp_db, 1)
     posts = get_all_posts(temp_db)
     assert len(posts) == 0
+
+def test_delete_all_posts_by_author(temp_db):
+    store_post(temp_db, "Post 1", "Content 1", "user1", "Addr1")
+    store_post(temp_db, "Post 2", "Content 2", "user1", "Addr2")
+    store_post(temp_db, "Post 3", "Content 3", "user2", "Addr3")
+    
+    delete_all_posts_by_author(temp_db, "user1")
+    
+    posts = get_all_posts(temp_db)
+    assert len(posts) == 1
+    assert posts[0]["author_id"] == "user2"
 
 def test_clear_posts(temp_db):
     store_post(temp_db, "Temp1", "Temp Content 1", "user1", "Addr1")

@@ -1,7 +1,7 @@
 import sqlite3
 
-def initialize_posts_db(posts_db):
-    conn = sqlite3.connect(posts_db)
+def initialize_posts(posts):
+    conn = sqlite3.connect(posts)
     cursor = conn.cursor()
 
     cursor.execute("""
@@ -21,8 +21,8 @@ def initialize_posts_db(posts_db):
     conn.close()
 
 
-def store_post(posts_db, subject, content, author_id, address, tags=None):
-    conn = sqlite3.connect(posts_db)
+def store_post(posts, subject, content, author_id, address, tags=None):
+    conn = sqlite3.connect(posts)
     cursor = conn.cursor()
 
     cursor.execute("""
@@ -34,8 +34,8 @@ def store_post(posts_db, subject, content, author_id, address, tags=None):
     conn.close()
 
 
-def get_post(posts_db, post_id):
-    conn = sqlite3.connect(posts_db)
+def get_post(posts, post_id):
+    conn = sqlite3.connect(posts)
     conn.row_factory = sqlite3.Row
     cursor = conn.cursor()
     
@@ -46,8 +46,8 @@ def get_post(posts_db, post_id):
     return dict(post) if post else None
 
 
-def get_all_posts(posts_db):
-    conn = sqlite3.connect(posts_db)
+def get_all_posts(posts):
+    conn = sqlite3.connect(posts)
     conn.row_factory = sqlite3.Row
     cursor = conn.cursor()
 
@@ -58,8 +58,8 @@ def get_all_posts(posts_db):
     return [dict(post) for post in posts]
 
 
-def update_post(posts_db, post_id, subject, content, address, tags=None):
-    conn = sqlite3.connect(posts_db)
+def update_post(posts, post_id, subject, content, address, tags=None):
+    conn = sqlite3.connect(posts)
     cursor = conn.cursor()
 
     cursor.execute("""
@@ -71,9 +71,22 @@ def update_post(posts_db, post_id, subject, content, address, tags=None):
     conn.commit()
     conn.close()
 
+def update_all_posts_author(posts, old_author, new_author):
+    conn = sqlite3.connect(posts)
+    cursor = conn.cursor()
 
-def delete_post(posts_db, post_id):
-    conn = sqlite3.connect(posts_db)
+    cursor.execute("""
+            UPDATE posts
+            SET author_id = ?
+            WHERE author_id = ?
+        """, (new_author, old_author))
+
+    conn.commit()
+    conn.close()
+
+
+def delete_post(posts, post_id):
+    conn = sqlite3.connect(posts)
     cursor = conn.cursor()
 
     cursor.execute("DELETE FROM posts WHERE id = ?", (post_id,))
@@ -81,8 +94,17 @@ def delete_post(posts_db, post_id):
     conn.commit()
     conn.close()
 
-def clear_posts(posts_db):
-    conn = sqlite3.connect(posts_db)
+def delete_all_posts_by_author(posts, author_id):
+    conn = sqlite3.connect(posts)
+    cursor = conn.cursor()
+
+    cursor.execute("DELETE FROM posts WHERE author_id = ?", (author_id,))
+
+    conn.commit()
+    conn.close()
+
+def clear_posts(posts):
+    conn = sqlite3.connect(posts)
     cursor = conn.cursor()
 
     cursor.execute("DELETE FROM posts")

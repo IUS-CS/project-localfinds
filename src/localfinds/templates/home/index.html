@@ -8,7 +8,7 @@
         <th>Newest Finds:</th>
     </thead>
     <tbody class="posts-records">
-        {% for post in posts %}
+        {% for post in all_posts %}
         <tr>
             <td class="record">
                 <a href="{{ url_for('serve_post', post_id=post['id']) }}">

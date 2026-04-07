@@ -1,7 +1,7 @@
 import sqlite3
 
-def initialize_accounts_db(accounts_db):
-    conn = sqlite3.connect(accounts_db)
+def initialize_accounts(accounts):
+    conn = sqlite3.connect(accounts)
     cursor = conn.cursor()
 
     cursor.execute("""
@@ -17,8 +17,8 @@ def initialize_accounts_db(accounts_db):
     conn.close()
 
 
-def store_account(accounts_db, username, password):
-    conn = sqlite3.connect(accounts_db)
+def store_account(accounts, username, password):
+    conn = sqlite3.connect(accounts)
     cursor = conn.cursor()
 
     try:
@@ -36,8 +36,8 @@ def store_account(accounts_db, username, password):
     return success
 
 
-def get_account(accounts_db, account_id):
-    conn = sqlite3.connect(accounts_db)
+def get_account(accounts, account_id):
+    conn = sqlite3.connect(accounts)
     conn.row_factory = sqlite3.Row
     cursor = conn.cursor()
     
@@ -47,8 +47,8 @@ def get_account(accounts_db, account_id):
     conn.close()
     return dict(account) if account else None
 
-def get_account_by_username(accounts_db, username):
-    conn = sqlite3.connect(accounts_db)
+def get_account_by_username(accounts, username):
+    conn = sqlite3.connect(accounts)
     conn.row_factory = sqlite3.Row
     cursor = conn.cursor()
 
@@ -61,8 +61,8 @@ def get_account_by_username(accounts_db, username):
     conn.close()
     return dict(account) if account else None
 
-def get_all_accounts(accounts_db):
-    conn = sqlite3.connect(accounts_db)
+def get_all_accounts(accounts):
+    conn = sqlite3.connect(accounts)
     conn.row_factory = sqlite3.Row
     cursor = conn.cursor()
 
@@ -72,8 +72,8 @@ def get_all_accounts(accounts_db):
     conn.close()
     return [dict(account) for account in accounts]
 
-def update_account(accounts_db, account_id, username, password):
-    conn = sqlite3.connect(accounts_db)
+def update_account(accounts, account_id, username, password):
+    conn = sqlite3.connect(accounts)
     cursor = conn.cursor()
 
     cursor.execute("""
@@ -86,8 +86,8 @@ def update_account(accounts_db, account_id, username, password):
     conn.close()
 
 
-def delete_account(accounts_db, account_id):
-    conn = sqlite3.connect(accounts_db)
+def delete_account(accounts, account_id):
+    conn = sqlite3.connect(accounts)
     cursor = conn.cursor()
 
     cursor.execute("DELETE FROM accounts WHERE id = ?", (account_id,))
@@ -95,8 +95,8 @@ def delete_account(accounts_db, account_id):
     conn.commit()
     conn.close()
 
-def clear_accounts(accounts_db):
-    conn = sqlite3.connect(accounts_db)
+def clear_accounts(accounts):
+    conn = sqlite3.connect(accounts)
     cursor = conn.cursor()
 
     cursor.execute("DELETE FROM accounts")

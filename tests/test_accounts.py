@@ -2,7 +2,7 @@ import pytest
 import tempfile
 import os
 import time
-from src.localfinds.database.accounts_db import initialize_accounts_db, store_account, get_account, get_account_by_username, get_all_accounts, update_account, delete_account, clear_accounts
+from src.localfinds.models.accounts import initialize_accounts, store_account, get_account, get_account_by_username, get_all_accounts, update_account, delete_account, clear_accounts
 
 # Run 'pytest -v' to run test functions in this file. Make sure to have pytest is installed.
 
@@ -12,7 +12,7 @@ def temp_db():
     temp_file = tempfile.NamedTemporaryFile(delete=False, suffix=".db")
     db_path = temp_file.name
     temp_file.close()
-    initialize_accounts_db(db_path)
+    initialize_accounts(db_path)
     yield db_path  
     os.remove(db_path)
 

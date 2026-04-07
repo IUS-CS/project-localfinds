@@ -1,30 +1,30 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 from werkzeug.security import generate_password_hash, check_password_hash
 import jinja_partials
-from src.localfinds.database.posts_db import initialize_posts_db, store_post, get_post, get_all_posts, clear_posts, update_post, delete_post
-from src.localfinds.database.accounts_db import initialize_accounts_db, store_account, get_account, get_account_by_username, update_account, delete_account, clear_accounts
+from src.localfinds.models.posts import delete_all_posts_by_author, initialize_posts, store_post, get_post, get_all_posts, clear_posts, update_all_posts_author, update_post, delete_post
+from src.localfinds.models.accounts import initialize_accounts, store_account, get_account, get_account_by_username, update_account, delete_account, clear_accounts
 
-accounts_db = "./data/accounts.db"
-posts_db = "./data/posts.db"
+accounts = "./data/accounts.db"
+posts = "./data/posts.db"
 
 app = Flask(__name__, template_folder="./templates")
 app.secret_key = 'localfindsprivatekey'
 jinja_partials.register_extensions(app)
 
 # ------------Initialize Database------------
-initialize_accounts_db(accounts_db)
-initialize_posts_db(posts_db)
+initialize_accounts(accounts)
+initialize_posts(posts)
 
-clear_accounts(accounts_db)
-clear_posts(posts_db) 
+clear_accounts(accounts)
+clear_posts(posts) 
 
 store_account(
-    accounts_db,
+    accounts,
     "admin",
     generate_password_hash("password")
 )
 store_post(
-    posts_db,
+    posts,
     "Welcome to LocalFinds!",
     "This is the first post. Feel free to explore and create your own posts!",
     "admin",
@@ -47,7 +47,7 @@ def create_post():
         author_id = session["username"]
 
         store_post(
-            posts_db,
+            posts,
             subject,
             content,
             author_id,
@@ -60,12 +60,12 @@ def create_post():
 
 @app.route("/")
 def home():
-    posts = get_all_posts(posts_db) 
-    return render_template("home/index.html", posts=posts)
+    all_posts = get_all_posts(posts) 
+    return render_template("home/index.html", all_posts=all_posts)
 
 @app.route("/posts/<int:post_id>")
 def serve_post(post_id):
-    post = get_post(posts_db, post_id)
+    post = get_post(posts, post_id)
     if post:
         return render_template("home/view_post.html", post=post)
     else:
@@ -73,7 +73,7 @@ def serve_post(post_id):
 
 @app.route("/posts/<int:post_id>/edit", methods=["GET", "POST"])
 def edit_post(post_id):
-    post = get_post(posts_db, post_id)
+    post = get_post(posts, post_id)
     if not post:
         return "Post not found", 404
     
@@ -86,7 +86,7 @@ def edit_post(post_id):
         address = request.form["address"]
         tags = request.form["tags"]
 
-        update_post(posts_db, post_id, subject, content, address, tags)
+        update_post(posts, post_id, subject, content, address, tags)
 
         return redirect(url_for("serve_post", post_id=post_id))
 
@@ -94,14 +94,14 @@ def edit_post(post_id):
 
 @app.route("/posts/<int:post_id>/delete")
 def remove_post(post_id):
-    post = get_post(posts_db, post_id)
+    post = get_post(posts, post_id)
     if not post:
         return "Post not found", 404
 
-    if "username" not in session or session["username"] != post["author_id"]:
+    if "username" not in session or (session["username"] != post["author_id"] and session["username"] != "admin"):
         return "Unauthorized", 403
 
-    delete_post(posts_db, post_id)
+    delete_post(posts, post_id)
     return redirect(url_for("home"))
 
 @app.route("/accounts/create", methods=["GET", "POST"])
@@ -112,12 +112,12 @@ def create_account():
         password = request.form["password"]
         password_hash = generate_password_hash(password)
 
-        success = store_account(accounts_db, username, password_hash)
+        success = store_account(accounts, username, password_hash)
         if not success:
             error = "Username is taken!"
             return render_template("home/create_account.html", error=error)
 
-        account = get_account_by_username(accounts_db, username)
+        account = get_account_by_username(accounts, username)
 
         if account and check_password_hash(account["password"], password):
             session["user_id"] = account["id"]
@@ -128,7 +128,7 @@ def create_account():
 
 @app.route("/accounts/<string:username>")
 def view_account(username):
-    account = get_account_by_username(accounts_db, username)
+    account = get_account_by_username(accounts, username)
     if account:
         return render_template("home/view_account.html", account=account)
     else:
@@ -136,7 +136,7 @@ def view_account(username):
 
 @app.route("/accounts/<string:username>/edit", methods=["GET", "POST"])
 def edit_account(username):
-    account = get_account_by_username(accounts_db, username)
+    account = get_account_by_username(accounts, username)
     if not account:
         return "Account not found", 404
 
@@ -146,30 +146,33 @@ def edit_account(username):
     if request.method == "POST":
         username = request.form["username"]
 
-        existing_account = get_account_by_username(accounts_db, username)
+        existing_account = get_account_by_username(accounts, username)
         if existing_account and existing_account["id"] != account["id"]:
             return "Username already taken", 400
 
         password = request.form["password"]
         password_hash = generate_password_hash(password)
 
-        update_account(accounts_db, account["id"], username, password_hash)
+        update_all_posts_author(posts, account["username"], username)
+
+        update_account(accounts, account["id"], username, password_hash)
         session["username"] = username
-        
+
         return redirect(url_for("view_account", username=username))
 
     return render_template("home/edit_account.html", account=account)
 
 @app.route("/accounts/<string:username>/delete", methods=["GET", "POST"])
 def remove_account(username):
-    account = get_account_by_username(accounts_db, username)
+    account = get_account_by_username(accounts, username)
     if not account:
         return "Account not found", 404
 
     if "user_id" not in session or (session["user_id"] != account["id"] and session["username"] != "admin"):
         return "Unauthorized", 403
 
-    delete_account(accounts_db, account["id"])
+    delete_account(accounts, account["id"])
+    delete_all_posts_by_author(posts, account["username"])
 
     if session["user_id"] == account["id"]:
         session.clear()
@@ -183,7 +186,7 @@ def login():
         username = request.form["username"]
         password = request.form["password"]
 
-        account = get_account_by_username(accounts_db, username)
+        account = get_account_by_username(accounts, username)
 
         if account and check_password_hash(account["password"], password):
             session["user_id"] = account["id"]

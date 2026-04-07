@@ -58,9 +58,9 @@ Points | Story
 3      | As a team member, I want to access doc/architecture.md so that I know what components the website consists of and how they interact.
 1      | As a team member, I want to access doc/sprint2.md so that I can reflect on the previous sprint.
 3      | As a user, I want my password to be encrypted in the backend so that my credentials are secure.
-3      | As a user, I want to be able to delete posts so that I can
+3      | As a user, I want to be able to delete posts so that I can correct mistakes.
 3      | As a user, I want to be able to edit posts so that I can correct mistakes.
-3      | As a user, I want to be able to delete my account so that I can
+3      | As a user, I want to be able to delete my account so that I can seperate myself from the service.
 3      | As a user, I want to be able to edit my account so that I can correct mistakes.
 5      | As a user, I want to insure through executing tests that the routes behave correctly so that I know the website is behaving properly.
 3      | As a user, I want a styled create account page so that it is easily accessible.
