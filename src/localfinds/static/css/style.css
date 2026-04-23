@@ -35,9 +35,9 @@
   --spacing-menu-radius: 12px;
   --spacing-btn-radius: 36px;
 
-    /* Table widths */
-    --table-width: 90%;
-    --account-menu-width: 300px;
+  /* Table widths */
+  --table-width: 90%;
+  --account-menu-width: 300px;
 
   /* Misc */
   --item-shadow: 1px 2px 3px rgba(0, 0, 0, 0.1);
@@ -98,14 +98,14 @@ a:hover {
 }
 
 .account-nav {
-    width: var(--account-menu-width);
-    display: block;
-    align-items: center;
-    text-align: center;
-    gap: 20px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  width: var(--account-menu-width);
+  display: block;
+  align-items: center;
+  text-align: center;
+  gap: 20px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .site-header img {
@@ -126,21 +126,19 @@ nav li a {
 }
 
 .show-menu {
-    width: var(--account-menu-width);
-    font-size: var(--font-table-header);
-    font-weight: 700;
+  width: var(--account-menu-width);
+  font-size: var(--font-table-header);
+  font-weight: 700;
 }
 
 .account-menu {
-    position: absolute;
-    display: none;
+  position: absolute;
+  display: none;
 }
 
 .menu-btn-container {
-    width: var(--account-menu-width);
+  width: var(--account-menu-width);
 }
-
-
 
 /* BUTTONS */
 .btn {
