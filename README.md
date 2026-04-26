@@ -46,9 +46,22 @@ LocalFinds was created as a academic collaborative project to:
     make run
     ```
 ## Testing
-- Execute all tests.
+- Execute all unit and integration tests.
     ```
     make test
     ```
+- Execute Selenium end-to-end browser tests (requires app to be running).
+    ```
+    # Terminal 1: Start the app
+    make run
+
+    # Terminal 2: Run Selenium tests
+    make test-selenium
+    ```
+- Or use the automated test runner (starts app automatically):
+    ```
+    ./run_selenium_tests.sh
+    ```
+  - Navigation and user experience flows
 
 

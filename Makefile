@@ -49,7 +49,10 @@ debug:
 
 # -------- TESTS --------
 test:
-	$(PY) -m pytest -v
+	PYTHONPATH=. $(PY) -m pytest -v
+
+test-selenium:
+	PYTHONPATH=. $(PY) -m pytest tests/test_selenium.py -v
 
 # -------- CLEAN --------
 clean:

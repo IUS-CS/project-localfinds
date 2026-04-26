@@ -13,7 +13,7 @@ def client():
         clear_accounts(accounts)
         clear_posts(posts)
         # Setup default account and post
-        store_account(accounts, "admin", generate_password_hash("password"))
+        store_account(accounts, "admin", generate_password_hash("password", method='pbkdf2:sha256'))
         store_post(posts, "Test Post", "Test content", "admin", "123 Main St", "tag1, tag2")
         yield client
 
@@ -29,11 +29,13 @@ def test_create_post_authorized(client):
         "tags": "test"
     }, follow_redirects=True)
     assert b"New Post" in response.data
-    assert get_all_posts(posts)[1]["subject"] == "New Post"
-    assert get_all_posts(posts)[1]["content"] == "Content here"
-    assert get_all_posts(posts)[1]["address"] == "456 Road St"
-    assert get_all_posts(posts)[1]["tags"] == "test"
-    assert len(get_all_posts(posts)) == 2
+    all_posts = get_all_posts(posts)
+    new_post = next((post for post in all_posts if post["subject"] == "New Post"), None)
+    assert new_post is not None
+    assert new_post["content"] == "Content here"
+    assert new_post["address"] == "456 Road St"
+    assert new_post["tags"] == "test"
+    assert len(all_posts) == 2
 
 def test_create_post_unauthorized(client):
     response = client.post("/posts/create", data={
@@ -138,7 +140,7 @@ def test_edit_account_authorized(client):
     assert get_all_posts(posts)[0]["author_id"] == "admin2"
 
 def test_edit_account_duplicate_username(client):
-    store_account(accounts, "alice", generate_password_hash("pass"))
+    store_account(accounts, "alice", generate_password_hash("pass", method='pbkdf2:sha256'))
     login(client, "admin", "password")
     response = client.post("/accounts/admin/edit", data={"username": "alice", "password": "newpass"}, follow_redirects=True)
     assert response.status_code == 400

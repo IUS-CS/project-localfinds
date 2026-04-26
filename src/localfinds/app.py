@@ -21,7 +21,7 @@ clear_posts(posts)
 store_account(
     accounts,
     "admin",
-    generate_password_hash("password")
+    generate_password_hash("password", method='pbkdf2:sha256')
 )
 store_post(
     posts,
@@ -110,7 +110,7 @@ def create_account():
     if request.method == "POST":
         username = request.form["username"]
         password = request.form["password"]
-        password_hash = generate_password_hash(password)
+        password_hash = generate_password_hash(password, method='pbkdf2:sha256')
 
         success = store_account(accounts, username, password_hash)
         if not success:
@@ -151,7 +151,7 @@ def edit_account(username):
             return "Username already taken", 400
 
         password = request.form["password"]
-        password_hash = generate_password_hash(password)
+        password_hash = generate_password_hash(password, method='pbkdf2:sha256')
 
         update_all_posts_author(posts, account["username"], username)
 
