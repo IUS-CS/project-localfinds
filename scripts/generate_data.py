@@ -4,21 +4,46 @@ from src.localfinds.models.posts import store_post
 from src.localfinds.models.accounts import (
     store_account,
     get_account_by_username,
-    update_account
+    update_account,
 )
+
 
 def generate_data():
     accounts = "./data/accounts.db"
     posts = "./data/posts.db"
 
     store_account(accounts, "John", generate_password_hash("password"))
-    update_account(accounts, get_account_by_username(accounts, "John").get("id"), "John", generate_password_hash("password"), bio="I enjoy pizza!")
+    update_account(
+        accounts,
+        get_account_by_username(accounts, "John").get("id"),
+        "John",
+        generate_password_hash("password"),
+        bio="I enjoy pizza!",
+    )
     store_account(accounts, "Maddie", generate_password_hash("password"))
-    update_account(accounts, get_account_by_username(accounts, "Maddie").get("id"), "Maddie", generate_password_hash("password"), bio="Asian cuizine is to die for!")
+    update_account(
+        accounts,
+        get_account_by_username(accounts, "Maddie").get("id"),
+        "Maddie",
+        generate_password_hash("password"),
+        bio="Asian cuizine is to die for!",
+    )
     store_account(accounts, "James", generate_password_hash("password"))
-    update_account(accounts, get_account_by_username(accounts, "James").get("id"), "James", generate_password_hash("password"), bio="Avid gamer.")
+    update_account(
+        accounts,
+        get_account_by_username(accounts, "James").get("id"),
+        "James",
+        generate_password_hash("password"),
+        bio="Avid gamer.",
+    )
     store_account(accounts, "Morgan", generate_password_hash("password"))
-    update_account(accounts, get_account_by_username(accounts, "Morgan").get("id"), "Morgan", generate_password_hash("password"), bio="Player of all TCGs.")
+    update_account(
+        accounts,
+        get_account_by_username(accounts, "Morgan").get("id"),
+        "Morgan",
+        generate_password_hash("password"),
+        bio="Player of all TCGs.",
+    )
     store_account(accounts, "Adam", generate_password_hash("password"))
     time.sleep(1)
     store_post(
@@ -32,7 +57,7 @@ def generate_data():
     time.sleep(1)
     store_post(
         posts,
-        "Dragon King\'s Daughter",
+        "Dragon King's Daughter",
         "Killer sushi, highly reccomend.",
         "Maddie",
         "129 W Market St, New Albany, IN 47150",
@@ -42,7 +67,7 @@ def generate_data():
     store_post(
         posts,
         "Empire Comics & Games",
-        "Great staff, wide selection of Magic: the Gathering cards. Plenty of board games and comics if you\'re into that kind of stuff.",
+        "Great staff, wide selection of Magic: the Gathering cards. Plenty of board games and comics if you're into that kind of stuff.",
         "Morgan",
         "1636 Slate Run Rd, New Albany, IN 47150",
         "retro, comics, boardgames, magicthegathering, mtg, cards, tcg",
@@ -68,7 +93,7 @@ def generate_data():
     time.sleep(1)
     store_post(
         posts,
-        "Arni\'s New Albany",
+        "Arni's New Albany",
         "Decent service, decent pizza.",
         "John",
         "1208 State St, New Albany, IN 47150",
