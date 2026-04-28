@@ -3,3 +3,4 @@ pytest
 gunicorn
 jinja_partials
 black
+pyopenssl
