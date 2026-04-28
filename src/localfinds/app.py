@@ -22,6 +22,7 @@ from src.localfinds.models.accounts import (
     delete_account,
     clear_accounts,
 )
+from scripts.generate_data import generate_data
 
 accounts = "./data/accounts.db"
 posts = "./data/posts.db"
@@ -46,6 +47,8 @@ store_post(
     "123 Main St, Anytown, USA",
     "welcome, intro",
 )
+
+generate_data()
 
 # ------------Routes------------
 
