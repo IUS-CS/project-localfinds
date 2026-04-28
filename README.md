@@ -25,6 +25,7 @@ LocalFinds was created as a academic collaborative project to:
 
 - HTML
 - CSS
+- JavaScript
 - SQLite
 - Python
 - Render
