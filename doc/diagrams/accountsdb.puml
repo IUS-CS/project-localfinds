@@ -4,6 +4,7 @@ entity Accounts {
   +id : INTEGER <<PK>>
   +username : TEXT <<NOT NULL>> <<UNIQUE>>
   +password : TEXT <<NOT NULL>>
+  +bio : TEXT <<DEFAULT ''>>
   +joined : DATETIME <<DEFAULT CURRENT_TIMESTAMP>>
 }
 
