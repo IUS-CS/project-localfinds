@@ -17,14 +17,9 @@
     <p>
       <input type="password" name="password" placeholder="password" required />
     </p>
-    <textarea
-        name="content"
-        placeholder="biography..."
-        rows="6"
-        cols="40"
-      >
+    <textarea name="bio" placeholder="biography..." rows="6" cols="40">
 {{ account.bio }}</textarea
-      >
+    >
     <button type="submit" class="btn">Save Changes</button>
     <a href="{{ url_for('remove_account', username=account.username) }}"
       >Delete Account and Posts</a
