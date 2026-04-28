@@ -114,6 +114,17 @@ a:hover {
 }
 
 /* NAVIGATION */
+.search-bar {
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+}
+
+.search-bar input {
+  margin-bottom: 10px;
+}
+
+
 nav li {
   margin-left: 20px;
 }
